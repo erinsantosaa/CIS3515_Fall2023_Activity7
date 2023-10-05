@@ -19,8 +19,11 @@ class DisplayActivity : AppCompatActivity() {
     private lateinit var textSizeSelectorButton: Button
 
     val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val selectedTextSize = findViewById<RecyclerView>(R.id.textSizeSelectorRecyclerView).getIntExtra("selectedTextSize", 0)
-        lyricsDisplayTextView.textSize = selectedTextSize.toFloat()
+        val data: Intent? = result.data
+        val selectedTextSize = data?.getIntExtra("selectedTextSize", 0)
+        if (selectedTextSize != null) {
+            lyricsDisplayTextView.textSize = selectedTextSize.toFloat()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
